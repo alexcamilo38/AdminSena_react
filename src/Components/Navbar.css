@@ -1,0 +1,217 @@
+.sena-navbar {
+  background-color: #0cbd28;
+  padding: 16px 24px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: visible; /* Evita que el menú desplegable se corte */
+  z-index: 1000;
+}
+
+.sena-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  overflow: visible;
+}
+
+.sena-left-section,
+.sena-right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Marca y Logo */
+.sena-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px;
+}
+
+.sena-logo-box {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+}
+
+.sena-logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.sena-brand-text {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Enlaces horizontales */
+.sena-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.sena-link:hover {
+  opacity: 0.9;
+}
+
+/* Menú Desplegable */
+.sena-dropdown-container {
+  position: relative;
+}
+
+.sena-dropdown-btn {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sena-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background-color: #ffffff;
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 10000; /* Permite superponerse sobre cualquier otro elemento */
+}
+
+.sena-dropdown-right {
+  left: auto;
+  right: 0;
+}
+
+.sena-dropdown-menu li a,
+.sena-danger-btn {
+  display: block;
+  padding: 8px 16px;
+  color: #212529;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.sena-dropdown-menu li a:hover {
+  background-color: #f1f5f9;
+}
+
+.sena-dropdown-header {
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.sena-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 4px 0;
+}
+
+.sena-danger-btn {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.sena-danger-btn:hover {
+  background-color: #fef2f2;
+}
+
+/* Buscador Horizontal */
+.sena-search-form {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+.sena-search-icon {
+  font-size: 0.85rem;
+}
+
+.sena-search-input {
+  border: none;
+  outline: none;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  width: 180px;
+}
+
+.sena-search-btn {
+  background-color: #ffffff;
+  color: #0c9c22;
+  border: none;
+  border-left: 1px solid #dee2e6;
+  padding: 6px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sena-search-btn:hover {
+  background-color: #f8f9fa;
+}
+
+/* Botón Login y Perfil */
+.sena-btn-login {
+  border: 1.5px solid #ffffff;
+  color: #ffffff;
+  background: transparent;
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.sena-btn-login:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.sena-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sena-avatar-circle {
+  width: 34px;
+  height: 34px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sena-user-name {
+  color: #ffffff;
+  font-weight: 700;
+}
