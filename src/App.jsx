@@ -18,6 +18,7 @@ import TrainingCenter from "./Pages/Admin/TrainingCenter"
 import Apprentice from "./Pages/Admin/Apprentice"
 import Reports from "./Pages/Admin/Report/Reports"
 import Convocatorias from "./Pages/Admin/Report/Convocatorias"
+import ForgotPassword from "./Pages/Login/ForgotPassword"
 const App = () => {
   return (
     <>
@@ -40,7 +41,7 @@ const App = () => {
           <Route path="/Apprentice" element={<Apprentice/>}/>
           <Route path="/Reports" element={<Reports/>}/>
           <Route path="/Convocatorias" element={<Convocatorias/>}/>
-
+          <Route path="/ForgotPassword" element={<ForgotPassword/>}/>
           
 
           Student

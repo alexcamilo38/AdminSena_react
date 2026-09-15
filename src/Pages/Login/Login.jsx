@@ -422,7 +422,7 @@ function Login() {
 
 
                                 <Link
-                                    to="/password/reset"
+                                    to="/ForgotPassword"
                                     className="text-decoration-none small fw-semibold"
                                     style={{ color: "#00324d" }}
                                 >
