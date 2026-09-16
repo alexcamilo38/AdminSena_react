@@ -127,7 +127,7 @@ const Navbar = () => {
 
                     <li>
                       <Link className="dropdown-item py-2" to="/Computer">
-                        💻 Lista Computadores
+                        💻 Lista Equipos
                       </Link>
                     </li>
 
@@ -150,7 +150,7 @@ const Navbar = () => {
                     </li>
 
                     <li>
-                      <Link className="dropdown-item py-2" to="/programas">
+                      <Link className="dropdown-item py-2" to="/Program">
                         🎓 Lista Programas
                       </Link>
                     </li>
@@ -158,7 +158,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         className="dropdown-item py-2"
-                        to="/environments"
+                        to="/Environments"
                       >
                         🏫 Lista Ambientes
                       </Link>
@@ -167,20 +167,20 @@ const Navbar = () => {
                     <li>
                       <Link
                         className="dropdown-item py-2"
-                        to="/announcements"
+                        to="/Announcement"
                       >
                         📢 Lista Anuncios
                       </Link>
                     </li>
 
                     <li>
-                      <Link className="dropdown-item py-2" to="/offers">
+                      <Link className="dropdown-item py-2" to="/Offers">
                         🏷️ Lista Ofertas
                       </Link>
                     </li>
 
                     <li>
-                      <Link className="dropdown-item py-2" to="/cohorts">
+                      <Link className="dropdown-item py-2" to="/Cohorts">
                         👥 Lista Ficha
                       </Link>
                     </li>
