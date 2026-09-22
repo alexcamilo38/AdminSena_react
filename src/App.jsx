@@ -3,7 +3,7 @@ import Navbar from "./Components/Navbar"
 import "./App.css"
 import Footer from "./Components/Footer"
 import { Route, Routes } from "react-router-dom"
-import Home from "./Pages/Home/home"
+import Home from "./Pages/Home/Home"
 import Login from "./Pages/Login/Login"
 import Register from "./Pages/Login/Register"
 import AdminHome from "./Pages/Admin/AdminHome"
@@ -28,6 +28,20 @@ import Offer from "./Pages/Admin/Offers/Offer"
 import Cohort from "./Pages/Admin/Cohorts/Cohort"
 import AreaEdit from "./Pages/Admin/Areas/AreaEdit"
 import TrainingCenterCreate from "./Pages/Admin/TrainingCenter/TrainingCenterCreate"
+import AnnouncementShow from "./Pages/Admin/Announcements/AnnouncementShow"
+import AnnouncementCreate from "./Pages/Admin/Announcements/AnnouncementCreate"
+import AnnouncementEdit from "./Pages/Admin/Announcements/AnnouncementEdit"
+import ApprenticeShow from "./Pages/Admin/Apprentice/ApprenticeShow"
+import ApprenticeCreate from "./Pages/Admin/Apprentice/ApprenticeCreate"
+import ApprenticeEdit from "./Pages/Admin/Apprentice/ApprenticeEdit"
+import ComputerCreate from "./Pages/Admin/Equipos/ComputerCreate"
+import ComputerShow from "./Pages/Admin/Equipos/ComputerShow"
+import ComputerEdit from "./Pages/Admin/Equipos/ComputerEdit"
+import TrainingCenterShow from "./Pages/Admin/TrainingCenter/TrainingCenterShow"
+import TrainingCenterEdit from "./Pages/Admin/TrainingCenter/TrainingCenterEdit"
+import TeacherCreate from "./Pages/Admin/Teacher/TeacherCreate"
+import TeacherShow from "./Pages/Admin/Teacher/TeacherShow"
+import TeacherEdit from "./Pages/Admin/Teacher/TeacherEdit"
 
 const App = () => {
   return (
@@ -49,15 +63,27 @@ const App = () => {
           <Route path="/Areas/:id/edit" element={<AreaEdit />} />
           {/* Rutas de Equipos*/}
           <Route path="/Computer" element={<Computer/>}/>
+          <Route path="/ComputerCreate" element={<ComputerCreate/>}/>
+          <Route path="/Computer/:id" element={<ComputerShow />} />
+          <Route path="/Computer/:id/edit" element={<ComputerEdit />} />
           {/* Rutas de Cursos */}
           <Route path="/Courses" element={<Course/>}/>
           {/* Rutas de Profesores*/}
           <Route path="/Teacher" element={<Teacher/>}/>
+          <Route path="/TeacherCreate" element={<TeacherCreate/>}/>
+          <Route path="/Teacher/:id" element={<TeacherShow />} />
+          <Route path="/Teacher/:id/edit" element={<TeacherEdit />} />
          {/* Rutas de centro de formacion */}
           <Route path="/TrainingCenter" element={<TrainingCenter/>}/>
           <Route path="/TrainingCenterCreate" element={<TrainingCenterCreate/>}/>
+          <Route path="/TrainingCenter/:id" element={<TrainingCenterShow />} />
+          <Route path="/TrainingCenter/:id/edit" element={<TrainingCenterEdit />} />
           {/* Rutas de Aprendices*/}         
           <Route path="/Apprentice" element={<Apprentice/>}/>
+          <Route path="/Apprentice/:id" element={<ApprenticeShow />} />
+          <Route path="/ApprenticeCreate" element={<ApprenticeCreate />} />
+          <Route path="/Apprentice/:id/edit" element={<ApprenticeEdit />} />
+          {/* Rutas de Reportes*/}    
           <Route path="/Reports" element={<Reports/>}/>
           <Route path="/Convocatorias" element={<Convocatorias/>}/>
           <Route path="/ForgotPassword" element={<ForgotPassword/>}/>
@@ -67,6 +93,10 @@ const App = () => {
           <Route path="/Environments" element={<Environments/>}/>
           {/* Rutas de Anuncios*/}    
           <Route path="/Announcement" element={<Announcement/>}/>
+          <Route path="/Announcement/:id" element={<AnnouncementShow />} />
+          <Route path="/AnnouncementCreate" element={<AnnouncementCreate />} />
+          <Route path="/Announcement/:id/edit" element={<AnnouncementEdit />} />
+
           {/* Rutas de Ofertas*/}    
           <Route path="/Offers" element={<Offer/>}/>
           {/* Rutas de Fichas*/}    

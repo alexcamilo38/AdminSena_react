@@ -29,7 +29,7 @@ const TrainingCenterCreate = () => {
         console.log('Nuevo centro de formación enviado:', formData);
 
         // Redireccionar a la lista de centros tras guardar
-        navigate('/trainingcenters');
+        navigate('/Trainingcenter');
     };
 
     return (

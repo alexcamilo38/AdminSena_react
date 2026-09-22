@@ -105,14 +105,14 @@ const Computer = () => {
 
                       <td className="text-center">
                         <Link
-                          to={`/computer/${comp.id}`}
+                          to={`/Computer/${comp.id}`}
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
                         <Link
-                          to={`/computer/${comp.id}/edit`}
+                          to={`/Computer/${comp.id}/edit`}
                           className="btn btn-warning btn-sm me-1"
                         >
                           Editar

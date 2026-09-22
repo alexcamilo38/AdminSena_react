@@ -44,7 +44,7 @@ const Announcement = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold text-dark">Lista de Anuncios</h1>
 
-        <Link to="/announcements/create" className="btn btn-success shadow-sm">
+        <Link to="/AnnouncementCreate" className="btn btn-success shadow-sm">
           <i className="bi bi-plus-circle me-1"></i> Nuevo Anuncio
         </Link>
       </div>
@@ -106,14 +106,14 @@ const Announcement = () => {
 
                       <td className="text-center">
                         <Link 
-                          to={`/announcements/${announcement.id}`} 
+                          to={`/Announcement/${announcement.id}`} 
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
                         <Link 
-                          to={`/announcements/${announcement.id}/edit`} 
+                          to={`/Announcement/${announcement.id}/edit`} 
                           className="btn btn-warning btn-sm me-1 text-white"
                         >
                           Editar

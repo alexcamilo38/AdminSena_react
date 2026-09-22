@@ -80,14 +80,14 @@ const TrainingCenter = () => {
 
                       <td className="text-center">
                         <Link
-                          to={`/trainingcenters/${center.id}`}
+                          to={`/TrainingCenter/${center.id}`}
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
                         <Link
-                          to={`/trainingcenters/${center.id}/edit`}
+                          to={`/TrainingCenter/${center.id}/edit`}
                           className="btn btn-warning btn-sm me-1"
                         >
                           Editar

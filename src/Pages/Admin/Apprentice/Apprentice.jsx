@@ -52,15 +52,15 @@ const Apprentice = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold text-dark">Lista de Aprendices</h1>
 
-        <Link to="/apprentice/registro" className="btn btn-success shadow-sm">
+        <Link to="/ApprenticeCreate" className="btn btn-success shadow-sm">
           <i className="bi bi-plus-circle me-1"></i> Nuevo Aprendiz
         </Link>
       </div>
 
       {/* Tarjeta y Tabla */}
       <div className="card shadow-lg border-0 rounded-4">
-        <div 
-          className="card-header text-white encabezado-tabla" 
+        <div
+          className="card-header text-white encabezado-tabla"
           style={{ backgroundColor: '#25c72f' }}
         >
           <h5 className="mb-0">Aprendices Registrados</h5>
@@ -100,15 +100,15 @@ const Apprentice = () => {
                       <td>{apprentice.computer_number || 'N/A'}</td>
 
                       <td className="text-center">
-                        <Link 
-                          to={`/apprentice/${apprentice.id}`} 
+                        <Link
+                          to={`/Apprentice/${apprentice.id}`}
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
-                        <Link 
-                          to={`/apprentice/${apprentice.id}/edit`} 
+                        <Link
+                          to={`/Apprentice/${apprentice.id}/edit`}
                           className="btn btn-warning btn-sm me-1"
                         >
                           Editar
