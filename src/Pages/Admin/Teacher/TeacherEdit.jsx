@@ -1,6 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+// Base de datos de prueba local
+const MOCK_TEACHERS = [
+    {
+        id: 1,
+        name: 'Roberto Gómez',
+        email: 'roberto.gomez@sena.edu.co',
+        area_id: 1,
+        area_name: 'Sistemas y Desarrollo',
+        training_center_id: 1,
+        training_center_name: 'Centro de Comercio y Servicios'
+    },
+    {
+        id: 2,
+        name: 'Elena Benítez',
+        email: 'elena.benitez@sena.edu.co',
+        area_id: 2,
+        area_name: 'Gestión Ambiental',
+        training_center_id: 2,
+        training_center_name: 'Centro Agropecuario'
+    },
+    {
+        id: 3,
+        name: 'Fernando Martínez',
+        email: 'f.martinez@sena.edu.co',
+        area_id: 3,
+        area_name: 'Recursos Humanos',
+        training_center_id: 1,
+        training_center_name: 'Centro de Comercio y Servicios'
+    },
+    {
+        id: 4,
+        name: 'Claudia López',
+        email: 'claudia.lopez@sena.edu.co',
+        area_id: 4,
+        area_name: 'Redes y Teleinformática',
+        training_center_id: 3,
+        training_center_name: 'Centro de Teleinformática'
+    }
+];
+
+// Opciones ficticias para los desplegables (<select>)
+const MOCK_AREAS = [
+    { id: 1, name: 'Sistemas y Desarrollo' },
+    { id: 2, name: 'Gestión Ambiental' },
+    { id: 3, name: 'Recursos Humanos' },
+    { id: 4, name: 'Redes y Teleinformática' }
+];
+
+const MOCK_TRAINING_CENTERS = [
+    { id: 1, name: 'Centro de Comercio y Servicios' },
+    { id: 2, name: 'Centro Agropecuario' },
+    { id: 3, name: 'Centro de Teleinformática' }
+];
+
 const TeacherEdit = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -17,41 +71,37 @@ const TeacherEdit = () => {
     const [areas, setAreas] = useState([]);
     const [trainingCenters, setTrainingCenters] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Cargar datos del profesor, áreas y centros de formación
+    // Cargar los datos ficticios correspondientes al ID recibido por parámetro
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [teacherRes, areasRes, centersRes] = await Promise.all([
-                    fetch(`/api/teachers/${id}`),
-                    fetch('/api/areas'),
-                    fetch('/api/training-centers'),
-                ]);
+        const loadMockData = () => {
+            setLoading(true);
 
-                const teacherData = await teacherRes.json();
-                const areasData = await areasRes.json();
-                const centersData = await centersRes.json();
+            // Simular búsqueda del profesor por ID
+            const teacherFound = MOCK_TEACHERS.find((t) => t.id === parseInt(id, 10));
 
+            if (teacherFound) {
                 setFormData({
-                    name: teacherData.name || '',
-                    email: teacherData.email || '',
-                    area_id: teacherData.area_id || '',
-                    training_center_id: teacherData.training_center_id || '',
+                    name: teacherFound.name,
+                    email: teacherFound.email,
+                    area_id: teacherFound.area_id || '',
+                    training_center_id: teacherFound.training_center_id || '',
                 });
-
-                setAreas(areasData);
-                setTrainingCenters(centersData);
-            } catch (error) {
-                console.error('Error al obtener la información:', error);
-            } finally {
-                setLoading(false);
+                setAreas(MOCK_AREAS);
+                setTrainingCenters(MOCK_TRAINING_CENTERS);
+                setError(null);
+            } else {
+                setError('El profesor solicitado no existe en los datos locales.');
             }
+
+            setLoading(false);
         };
 
-        fetchData();
+        loadMockData();
     }, [id]);
 
-    // Manejar cambios en las entradas del formulario
+    // Manejar cambios en los inputs del formulario
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -60,30 +110,27 @@ const TeacherEdit = () => {
         }));
     };
 
-    // Enviar los datos actualizados mediante PUT
-    const handleSubmit = async (e) => {
+    // Simular el envío del formulario (PUT)
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        try {
-            const response = await fetch(`/api/teachers/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+        // Obtener nombres descriptivos a partir de los IDs seleccionados
+        const selectedArea = areas.find((a) => a.id === parseInt(formData.area_id, 10));
+        const selectedCenter = trainingCenters.find((c) => c.id === parseInt(formData.training_center_id, 10));
 
-            if (response.ok) {
-                alert('Profesor actualizado con éxito');
-                navigate('/teachers');
-            } else {
-                const errorData = await response.json();
-                console.error('Error de validación:', errorData);
-            }
-        } catch (error) {
-            console.error('Error al actualizar el profesor:', error);
-        }
+        const updatedTeacher = {
+            id: parseInt(id, 10),
+            name: formData.name,
+            email: formData.email,
+            area_id: parseInt(formData.area_id, 10),
+            area_name: selectedArea ? selectedArea.name : '',
+            training_center_id: parseInt(formData.training_center_id, 10),
+            training_center_name: selectedCenter ? selectedCenter.name : '',
+        };
+
+        console.log('Profesor actualizado (Mock Result):', updatedTeacher);
+        alert(`Profesor "${updatedTeacher.name}" actualizado con éxito (Modo Ficticio).`);
+        navigate('/teachers');
     };
 
     if (loading) {
@@ -91,6 +138,21 @@ const TeacherEdit = () => {
             <div className="container mt-5 text-center">
                 <div className="spinner-border text-success" role="status">
                     <span className="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="container mt-5">
+                <div className="alert alert-danger text-center" role="alert">
+                    {error}
+                </div>
+                <div className="text-center">
+                    <button className="btn btn-secondary" onClick={() => navigate(-1)}>
+                        Volver
+                    </button>
                 </div>
             </div>
         );

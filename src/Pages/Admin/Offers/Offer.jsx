@@ -41,15 +41,15 @@ const Offer = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold text-dark">Lista de Ofertas</h1>
 
-        <Link to="/offers/create" className="btn btn-success shadow-sm">
+        <Link to="/OffersCreate" className="btn btn-success shadow-sm">
           <i className="bi bi-plus-circle me-1"></i> Nueva Oferta
         </Link>
       </div>
 
       {/* Tarjeta con Tabla */}
       <div className="card shadow-lg border-0 rounded-4">
-        <div 
-          className="card-header text-white encabezado-tabla" 
+        <div
+          className="card-header text-white encabezado-tabla"
           style={{ backgroundColor: '#25c72f' }}
         >
           <h5 className="mb-0">Ofertas Registradas</h5>
@@ -86,15 +86,15 @@ const Offer = () => {
                       <td>{offer.program?.name || 'N/A'}</td>
 
                       <td className="text-center">
-                        <Link 
-                          to={`/offers/${offer.id}`} 
+                        <Link
+                          to={`/Offers/${offer.id}`}
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
-                        <Link 
-                          to={`/offers/${offer.id}/edit`} 
+                        <Link
+                          to={`/Offers/${offer.id}/edit`}
                           className="btn btn-warning btn-sm me-1 text-white"
                         >
                           Editar

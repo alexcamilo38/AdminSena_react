@@ -41,15 +41,15 @@ const Cohort = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold text-dark">Lista de Fichas</h1>
 
-        <Link to="/cohorts/create" className="btn btn-success shadow-sm">
+        <Link to="/CohortsCreate" className="btn btn-success shadow-sm">
           <i className="bi bi-plus-circle me-1"></i> Nueva Ficha
         </Link>
       </div>
 
       {/* Tarjeta con Tabla */}
       <div className="card shadow-lg border-0 rounded-4">
-        <div 
-          className="card-header text-white encabezado-tabla" 
+        <div
+          className="card-header text-white encabezado-tabla"
           style={{ backgroundColor: '#25c72f' }}
         >
           <h5 className="mb-0">Fichas Registradas</h5>
@@ -84,21 +84,21 @@ const Cohort = () => {
                       <td>{cohort.schedule}</td>
 
                       <td>
-                        {cohort.offer 
-                          ? `Oferta #${cohort.offer.id} - ${cohort.offer.shift}` 
+                        {cohort.offer
+                          ? `Oferta #${cohort.offer.id} - ${cohort.offer.shift}`
                           : 'N/A'}
                       </td>
 
                       <td className="text-center">
-                        <Link 
-                          to={`/cohorts/${cohort.id}`} 
+                        <Link
+                          to={`/Cohorts/${cohort.id}`}
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
-                        <Link 
-                          to={`/cohorts/${cohort.id}/edit`} 
+                        <Link
+                          to={`/Cohorts/${cohort.id}/edit`}
                           className="btn btn-warning btn-sm me-1 text-white"
                         >
                           Editar

@@ -42,6 +42,21 @@ import TrainingCenterEdit from "./Pages/Admin/TrainingCenter/TrainingCenterEdit"
 import TeacherCreate from "./Pages/Admin/Teacher/TeacherCreate"
 import TeacherShow from "./Pages/Admin/Teacher/TeacherShow"
 import TeacherEdit from "./Pages/Admin/Teacher/TeacherEdit"
+import CourseCreate from "./Pages/Admin/Course/CourseCreate"
+import CourseEdit from "./Pages/Admin/Course/CourseEdit"
+import CourseShow from "./Pages/Admin/Course/CourseShow"
+import ProgramEdit from "./Pages/Admin/Program/ProgramEdit"
+import ProgramCreate from "./Pages/Admin/Program/ProgramCreate"
+import ProgramShow from "./Pages/Admin/Program/ProgramShow"
+import EnvironmentsCreate from "./Pages/Admin/Environments/EnvironmentsCreate"
+import EnvironmentsShow from "./Pages/Admin/Environments/EnvironmentsShow"
+import EnvironmentsEdit from "./Pages/Admin/Environments/EnvironmentsEdit"
+import OfferShow from "./Pages/Admin/Offers/OfferShow"
+import OfferCreate from "./Pages/Admin/Offers/OfferCreate"
+import OfferEdit from "./Pages/Admin/Offers/OfferEdit"
+import CohortShow from "./Pages/Admin/Cohorts/CohortShow"
+import CohortCreate from "./Pages/Admin/Cohorts/CohortCreate"
+import CohortEdit from "./Pages/Admin/Cohorts/CohortEdit"
 
 const App = () => {
   return (
@@ -68,6 +83,9 @@ const App = () => {
           <Route path="/Computer/:id/edit" element={<ComputerEdit />} />
           {/* Rutas de Cursos */}
           <Route path="/Courses" element={<Course/>}/>
+          <Route path="/CourseCreate" element={<CourseCreate/>}/>
+          <Route path="/Courses/:id/edit" element={<CourseEdit />} />
+          <Route path="/Courses/:id" element={<CourseShow />} />
           {/* Rutas de Profesores*/}
           <Route path="/Teacher" element={<Teacher/>}/>
           <Route path="/TeacherCreate" element={<TeacherCreate/>}/>
@@ -89,8 +107,15 @@ const App = () => {
           <Route path="/ForgotPassword" element={<ForgotPassword/>}/>
           {/* Rutas de Programas*/}    
           <Route path="/Program" element={<Program/>}/>
+          <Route path="/ProgramCreate" element={<ProgramCreate/>}/>
+          <Route path="/Program/:id/edit" element={<ProgramEdit />} />
+          <Route path="/Program/:id" element={<ProgramShow />} />
+          
           {/* Rutas de Ambientes*/}    
           <Route path="/Environments" element={<Environments/>}/>
+          <Route path="/EnvironmentsCreate" element={<EnvironmentsCreate/>}/>
+          <Route path="/Environments/:id/edit" element={<EnvironmentsEdit />} />
+          <Route path="/Environments/:id" element={<EnvironmentsShow />} />
           {/* Rutas de Anuncios*/}    
           <Route path="/Announcement" element={<Announcement/>}/>
           <Route path="/Announcement/:id" element={<AnnouncementShow />} />
@@ -99,8 +124,14 @@ const App = () => {
 
           {/* Rutas de Ofertas*/}    
           <Route path="/Offers" element={<Offer/>}/>
+          <Route path="/Offers/:id" element={<OfferShow />} />
+          <Route path="/OffersCreate" element={<OfferCreate />} />
+          <Route path="/Offers/:id/edit" element={<OfferEdit />} />
           {/* Rutas de Fichas*/}    
           <Route path="/Cohorts" element={<Cohort/>}/>
+          <Route path="/Cohorts/:id" element={<CohortShow />} />
+          <Route path="/CohortsCreate" element={<CohortCreate />} />
+          <Route path="/Cohorts/:id/edit" element={<CohortEdit />} />
 
           Student
 

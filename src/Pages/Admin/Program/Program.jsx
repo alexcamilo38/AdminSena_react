@@ -49,15 +49,15 @@ const Program = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold text-dark">Lista de Programas</h1>
 
-        <Link to="/programs/create" className="btn btn-success shadow-sm">
+        <Link to="/ProgramCreate" className="btn btn-success shadow-sm">
           <i className="bi bi-plus-circle me-1"></i> Nuevo Programa
         </Link>
       </div>
 
       {/* Tarjeta y Tabla */}
       <div className="card shadow-lg border-0 rounded-4">
-        <div 
-          className="card-header text-white encabezado-tabla" 
+        <div
+          className="card-header text-white encabezado-tabla"
           style={{ backgroundColor: '#25c72f' }}
         >
           <h5 className="mb-0">Programas Registrados</h5>
@@ -75,7 +75,7 @@ const Program = () => {
                   <th>Duración</th>
                   <th>Modalidad</th>
                   <th>Área</th>
-                  
+
                   <th className="text-center">Acciones</th>
                 </tr>
               </thead>
@@ -90,8 +90,8 @@ const Program = () => {
                         {program.name}
                       </td>
 
-                      <td 
-                        className="small text-muted" 
+                      <td
+                        className="small text-muted"
                         style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
                       >
                         {program.description}
@@ -111,15 +111,15 @@ const Program = () => {
 
 
                       <td className="text-center">
-                        <Link 
-                          to={`/programs/${program.id}`} 
+                        <Link
+                          to={`/Program/${program.id}`}
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
-                        <Link 
-                          to={`/programs/${program.id}/edit`} 
+                        <Link
+                          to={`/Program/${program.id}/edit`}
                           className="btn btn-warning btn-sm me-1 text-white"
                         >
                           Editar

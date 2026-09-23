@@ -1,76 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// Base de datos ficticia local
-const MOCK_APPRENTICES = [
+// Base de datos ficticia local de programas de formación
+const MOCK_PROGRAMS = [
     {
         id: 1,
-        name: 'Carlos Mendoza',
-        email: 'carlos.mendoza@soy.sena.edu.co',
-        cell_number: '3101234567',
-        course: { id: 1, course_number: '2671234' },
-        computer: { id: 1, number: 'PC-01' },
-        created_at: '2026-02-15T08:30:00Z',
-        updated_at: '2026-03-10T14:20:00Z'
+        name: 'Análisis y Desarrollo de Software',
+        description: 'Construcción de software web y móvil utilizando tecnologías modernas.',
+        type: 'Tecnólogo',
+        duration: '24 Meses',
+        modality: 'Presencial',
+        area_name: 'Sistemas y Desarrollo',
+        created_at: '2026-01-10T08:00:00Z',
+        updated_at: '2026-03-01T10:30:00Z'
     },
     {
         id: 2,
-        name: 'María Alejandra Gómez',
-        email: 'maria.gomez@soy.sena.edu.co',
-        cell_number: '3209876543',
-        course: { id: 1, course_number: '2671234' },
-        computer: { id: 2, number: 'PC-05' },
-        created_at: '2026-01-20T10:15:00Z',
-        updated_at: '2026-03-01T09:45:00Z'
+        name: 'Conservación de Recursos Naturales',
+        description: 'Monitoreo y protección de ecosistemas y cuencas hidrográficas.',
+        type: 'Técnico',
+        duration: '12 Meses',
+        modality: 'Presencial',
+        area_name: 'Gestión Ambiental',
+        created_at: '2026-01-15T09:00:00Z',
+        updated_at: '2026-02-20T11:15:00Z'
     },
     {
         id: 3,
-        name: 'Juan David Ramírez',
-        email: 'juan.ramirez@soy.sena.edu.co',
-        cell_number: '3155551234',
-        course: { id: 2, course_number: '2559876' },
-        computer: { id: 4, number: 'N/A' },
-        created_at: '2026-02-01T11:00:00Z',
-        updated_at: '2026-02-01T11:00:00Z'
-    },
-    {
-        id: 4,
-        name: 'Laura Sofía Torres',
-        email: 'laura.torres@soy.sena.edu.co',
-        cell_number: '3004448899',
-        course: { id: 2, course_number: '2559876' },
-        computer: { id: 3, number: 'PC-12' },
-        created_at: '2026-03-05T16:50:00Z',
-        updated_at: '2026-03-12T18:10:00Z'
+        name: 'Gestión del Talento Humano',
+        description: 'Administración del capital humano en organizaciones del sector productivo.',
+        type: 'Tecnólogo',
+        duration: '24 Meses',
+        modality: 'Virtual',
+        area_name: 'Recursos Humanos',
+        created_at: '2026-02-01T14:00:00Z',
+        updated_at: '2026-02-01T14:00:00Z'
     }
 ];
 
-const ApprenticeShow = () => {
+const ProgramShow = () => {
+    // Hooks de navegación y parámetros de la URL
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const [apprentice, setApprentice] = useState(null);
+    // Estados para la información del programa y la carga
+    const [program, setProgram] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    // Efecto para buscar el programa cuando cambie el ID en la URL
     useEffect(() => {
-        const fetchApprentice = () => {
+        const fetchProgram = () => {
             setLoading(true);
 
-            // Búsqueda del aprendiz por ID en la lista ficticia
-            const foundApprentice = MOCK_APPRENTICES.find((a) => a.id === parseInt(id, 10));
+            // Búsqueda del programa por ID en la lista ficticia
+            const foundProgram = MOCK_PROGRAMS.find((p) => p.id === parseInt(id, 10));
 
-            if (foundApprentice) {
-                setApprentice(foundApprentice);
+            if (foundProgram) {
+                setProgram(foundProgram);
             } else {
-                setApprentice(null);
+                setProgram(null);
             }
 
             setLoading(false);
         };
 
-        fetchApprentice();
+        fetchProgram();
     }, [id]);
 
+    // Función auxiliar para dar formato a las fechas (DD/MM/YYYY HH:mm)
     const formatDate = (dateString) => {
         if (!dateString) return 'N/A';
         const date = new Date(dateString);
@@ -84,6 +81,7 @@ const ApprenticeShow = () => {
         });
     };
 
+    // Pantalla de carga mientras se consulta el registro
     if (loading) {
         return (
             <div className="container mt-5 text-center">
@@ -94,11 +92,12 @@ const ApprenticeShow = () => {
         );
     }
 
-    if (!apprentice) {
+    // Mensaje de error si el programa no existe
+    if (!program) {
         return (
             <div className="container mt-5 text-center">
                 <div className="alert alert-danger" role="alert">
-                    No se encontró la información del aprendiz solicitado.
+                    No se encontró la información del programa solicitado.
                 </div>
                 <button className="btn btn-secondary" onClick={() => navigate(-1)}>
                     Volver
@@ -107,84 +106,102 @@ const ApprenticeShow = () => {
         );
     }
 
+    // Renderizado principal con el detalle del programa
     return (
         <div className="container mt-5 mb-5">
             <div className="card shadow-lg border-0">
 
+                {/* Encabezado del Card */}
                 <div className="card-header bg-success text-white">
                     <h3 className="mb-0">
-                        Aprendiz: {apprentice.name}
+                        Programa: {program.name}
                     </h3>
                 </div>
 
+                {/* Cuerpo del Card */}
                 <div className="card-body">
 
+                    {/* Fila: ID y Nombre */}
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             <label className="fw-bold">ID</label>
                             <div className="form-control bg-light">
-                                {apprentice.id}
+                                {program.id}
                             </div>
                         </div>
 
                         <div className="col-md-6 mb-3">
-                            <label className="fw-bold">Nombre Completo</label>
+                            <label className="fw-bold">Nombre del Programa</label>
                             <div className="form-control">
-                                {apprentice.name}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-6 mb-3">
-                            <label className="fw-bold">Correo Electrónico</label>
-                            <div className="form-control">
-                                {apprentice.email}
-                            </div>
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <label className="fw-bold">Número de Celular</label>
-                            <div className="form-control">
-                                {apprentice.cell_number}
+                                {program.name}
                             </div>
                         </div>
                     </div>
 
+                    {/* Fila: Descripción */}
+                    <div className="row">
+                        <div className="col-md-12 mb-3">
+                            <label className="fw-bold">Descripción</label>
+                            <div className="form-control" style={{ minHeight: '80px', height: 'auto' }}>
+                                {program.description}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Fila: Tipo y Duración */}
                     <div className="row">
                         <div className="col-md-6 mb-3">
-                            <label className="fw-bold">Número de Curso</label>
+                            <label className="fw-bold">Tipo de Programa</label>
                             <div className="form-control">
-                                {apprentice.course?.course_number || 'N/A'}
+                                {program.type}
                             </div>
                         </div>
 
                         <div className="col-md-6 mb-3">
-                            <label className="fw-bold">Número de Computador</label>
+                            <label className="fw-bold">Duración</label>
                             <div className="form-control">
-                                {apprentice.computer?.number || 'N/A'}
+                                {program.duration}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Fila: Modalidad y Área */}
+                    <div className="row">
+                        <div className="col-md-6 mb-3">
+                            <label className="fw-bold">Modalidad</label>
+                            <div className="form-control">
+                                {program.modality}
+                            </div>
+                        </div>
+
+                        <div className="col-md-6 mb-3">
+                            <label className="fw-bold">Área</label>
+                            <div className="form-control">
+                                {program.area_name || 'N/A'}
                             </div>
                         </div>
                     </div>
 
                     <hr className="my-4" />
 
+                    {/* Fila: Fechas de auditoría */}
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             <label className="fw-bold">Fecha de registro</label>
                             <div className="form-control text-muted bg-light">
-                                {formatDate(apprentice.created_at)}
+                                {formatDate(program.created_at)}
                             </div>
                         </div>
 
                         <div className="col-md-6 mb-3">
                             <label className="fw-bold">Última actualización</label>
                             <div className="form-control text-muted bg-light">
-                                {formatDate(apprentice.updated_at)}
+                                {formatDate(program.updated_at)}
                             </div>
                         </div>
                     </div>
 
+                    {/* Botón de retorno */}
                     <div className="mt-4 text-end">
                         <button onClick={() => navigate(-1)} className="btn btn-secondary">
                             Volver
@@ -198,4 +215,4 @@ const ApprenticeShow = () => {
     );
 };
 
-export default ApprenticeShow;
+export default ProgramShow;

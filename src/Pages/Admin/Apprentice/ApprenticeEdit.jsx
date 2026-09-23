@@ -1,9 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+// Base de datos ficticia local
+const MOCK_APPRENTICES = [
+    {
+        id: 1,
+        name: 'Carlos Mendoza',
+        email: 'carlos.mendoza@soy.sena.edu.co',
+        cell_number: '3101234567',
+        course_id: 1,
+        course_number: '2671234',
+        computer_id: 1,
+        computer_number: 'PC-01'
+    },
+    {
+        id: 2,
+        name: 'María Alejandra Gómez',
+        email: 'maria.gomez@soy.sena.edu.co',
+        cell_number: '3209876543',
+        course_id: 1,
+        course_number: '2671234',
+        computer_id: 2,
+        computer_number: 'PC-05'
+    },
+    {
+        id: 3,
+        name: 'Juan David Ramírez',
+        email: 'juan.ramirez@soy.sena.edu.co',
+        cell_number: '3155551234',
+        course_id: 2,
+        course_number: '2559876',
+        computer_id: 4,
+        computer_number: 'N/A'
+    },
+    {
+        id: 4,
+        name: 'Laura Sofía Torres',
+        email: 'laura.torres@soy.sena.edu.co',
+        cell_number: '3004448899',
+        course_id: 2,
+        course_number: '2559876',
+        computer_id: 3,
+        computer_number: 'PC-12'
+    }
+];
+
+// Opciones ficticias para los desplegables (<select>)
+const MOCK_COURSES = [
+    { id: 1, course_number: '2671234' },
+    { id: 2, course_number: '2559876' }
+];
+
+const MOCK_COMPUTERS = [
+    { id: 1, number: 'PC-01' },
+    { id: 2, number: 'PC-05' },
+    { id: 3, number: 'PC-12' },
+    { id: 4, number: 'N/A' }
+];
+
 const ApprenticeEdit = () => {
     const navigate = useNavigate();
-    const { id } = useParams(); // Obtiene el ID del aprendiz desde la URL
+    const { id } = useParams();
 
     // Estado del formulario
     const [formData, setFormData] = useState({
@@ -18,39 +75,35 @@ const ApprenticeEdit = () => {
     const [courses, setCourses] = useState([]);
     const [computers, setComputers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Precargar los datos del aprendiz y las listas desplegables
+    // Precargar los datos del aprendiz y las listas desplegables desde datos ficticios
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [apprenticeRes, coursesRes, computersRes] = await Promise.all([
-                    fetch(`/api/apprentices/${id}`),
-                    fetch('/api/courses'),
-                    fetch('/api/computers'),
-                ]);
+        const loadMockData = () => {
+            setLoading(true);
 
-                const apprenticeData = await apprenticeRes.json();
-                const coursesData = await coursesRes.json();
-                const computersData = await computersRes.json();
+            // Búsqueda del aprendiz por ID
+            const apprenticeFound = MOCK_APPRENTICES.find((a) => a.id === parseInt(id, 10));
 
+            if (apprenticeFound) {
                 setFormData({
-                    name: apprenticeData.name || '',
-                    email: apprenticeData.email || '',
-                    cell_number: apprenticeData.cell_number || '',
-                    course_id: apprenticeData.course_id || '',
-                    computer_id: apprenticeData.computer_id || '',
+                    name: apprenticeFound.name,
+                    email: apprenticeFound.email,
+                    cell_number: apprenticeFound.cell_number,
+                    course_id: apprenticeFound.course_id || '',
+                    computer_id: apprenticeFound.computer_id || '',
                 });
-
-                setCourses(coursesData);
-                setComputers(computersData);
-            } catch (error) {
-                console.error('Error al cargar la información:', error);
-            } finally {
-                setLoading(false);
+                setCourses(MOCK_COURSES);
+                setComputers(MOCK_COMPUTERS);
+                setError(null);
+            } else {
+                setError('El aprendiz solicitado no existe en los datos locales.');
             }
+
+            setLoading(false);
         };
 
-        fetchData();
+        loadMockData();
     }, [id]);
 
     // Manejar cambios en las entradas del formulario
@@ -59,27 +112,27 @@ const ApprenticeEdit = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Enviar los cambios con método PUT
-    const handleSubmit = async (e) => {
+    // Simular el envío de cambios (PUT)
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        try {
-            const response = await fetch(`/api/apprentices/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+        const selectedCourse = courses.find((c) => c.id === parseInt(formData.course_id, 10));
+        const selectedComputer = computers.find((comp) => comp.id === parseInt(formData.computer_id, 10));
 
-            if (response.ok) {
-                alert('Aprendiz actualizado con éxito');
-                navigate('/apprentices');
-            }
-        } catch (error) {
-            console.error('Error al actualizar:', error);
-        }
+        const updatedApprentice = {
+            id: parseInt(id, 10),
+            name: formData.name,
+            email: formData.email,
+            cell_number: formData.cell_number,
+            course_id: parseInt(formData.course_id, 10),
+            course_number: selectedCourse ? selectedCourse.course_number : '',
+            computer_id: parseInt(formData.computer_id, 10),
+            computer_number: selectedComputer ? selectedComputer.number : '',
+        };
+
+        console.log('Aprendiz actualizado (Mock Result):', updatedApprentice);
+        alert(`Aprendiz "${updatedApprentice.name}" actualizado con éxito (Modo Ficticio).`);
+        navigate('/Apprentice');
     };
 
     if (loading) {
@@ -87,6 +140,21 @@ const ApprenticeEdit = () => {
             <div className="container mt-5 text-center">
                 <div className="spinner-border text-success" role="status">
                     <span className="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="container mt-5">
+                <div className="alert alert-danger text-center" role="alert">
+                    {error}
+                </div>
+                <div className="text-center">
+                    <Link to="/Apprentice" className="btn btn-secondary">
+                        Volver
+                    </Link>
                 </div>
             </div>
         );

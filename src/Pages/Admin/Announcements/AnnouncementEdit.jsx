@@ -1,6 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+// Datos ficticios exactos
+const MOCK_ANNOUNCEMENTS = [
+    {
+        id: 1,
+        title: 'Inscripciones Abiertas 2026',
+        content: 'Proceso de inscripción para programas de formación técnica y tecnológica.',
+        publish_date: '2026-03-15',
+        training_center_id: 1,
+        training_center: { id: 1, name: 'Centro de Teleinformática y Producción Industrial' },
+        urlFoto: 'https://placehold.co/300x200?text=Inscripciones+2026'
+    },
+    {
+        id: 2,
+        title: 'Feria de Emprendimiento',
+        content: 'Muestra comercial de proyectos productivos desarrollados por los aprendices.',
+        publish_date: '2026-04-10',
+        training_center_id: 2,
+        training_center: { id: 2, name: 'Centro Agropecuario' },
+        urlFoto: 'https://placehold.co/300x200?text=Feria+Emprendimiento'
+    },
+    {
+        id: 3,
+        title: 'Mantenimiento de Plataforma',
+        content: 'Aviso sobre interrupción programada de los servicios virtuales.',
+        publish_date: '2026-05-01',
+        training_center_id: 3,
+        training_center: { id: 3, name: 'Centro de Comercio y Servicios' },
+        urlFoto: ''
+    }
+];
+
+// Centros de formación derivados de los datos ficticios
+const MOCK_TRAINING_CENTERS = [
+    { id: 1, name: 'Centro de Teleinformática y Producción Industrial' },
+    { id: 2, name: 'Centro Agropecuario' },
+    { id: 3, name: 'Centro de Comercio y Servicios' }
+];
+
 const AnnouncementEdit = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -14,17 +52,17 @@ const AnnouncementEdit = () => {
         currentPhotoUrl: ''
     });
     const [photo, setPhoto] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
     const [trainingCenters, setTrainingCenters] = useState([]);
 
-    // Cargar datos iniciales (Anuncio actual y lista de Centros de Formación)
     useEffect(() => {
-        // Petición para obtener la lista de centros de formación
+        // 1. Cargar lista de centros de formación
         fetch('/api/training-centers')
             .then((res) => res.json())
             .then((data) => setTrainingCenters(data))
-            .catch((err) => console.error('Error al cargar centros:', err));
+            .catch(() => setTrainingCenters(MOCK_TRAINING_CENTERS));
 
-        // Petición para obtener la información del anuncio a editar
+        // 2. Cargar el anuncio específico según el ID de la URL
         fetch(`/api/announcements/${id}`)
             .then((res) => res.json())
             .then((data) => {
@@ -32,11 +70,26 @@ const AnnouncementEdit = () => {
                     title: data.title || '',
                     content: data.content || '',
                     publish_date: data.publish_date || '',
-                    training_center_id: data.training_center_id || '',
-                    currentPhotoUrl: data.urlFoto ? `/storage/images/${data.urlFoto}` : ''
+                    training_center_id: data.training_center_id || data.training_center?.id || '',
+                    currentPhotoUrl: data.urlFoto
+                        ? data.urlFoto.startsWith('http')
+                            ? data.urlFoto
+                            : `/storage/images/${data.urlFoto}`
+                        : ''
                 });
             })
-            .catch((err) => console.error('Error al cargar el anuncio:', err));
+            .catch(() => {
+                // Carga el anuncio ficticio que coincida con el ID recibido en la ruta (/Announcement/1/edit)
+                const found = MOCK_ANNOUNCEMENTS.find((item) => item.id === Number(id)) || MOCK_ANNOUNCEMENTS[0];
+
+                setFormData({
+                    title: found.title,
+                    content: found.content,
+                    publish_date: found.publish_date,
+                    training_center_id: found.training_center_id || found.training_center?.id || 1,
+                    currentPhotoUrl: found.urlFoto || ''
+                });
+            });
     }, [id]);
 
     const handleChange = (e) => {
@@ -44,14 +97,15 @@ const AnnouncementEdit = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Captura del nuevo archivo de imagen
+    // Captura de imagen con vista previa
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            setPhoto(e.target.files[0]);
+            const selectedFile = e.target.files[0];
+            setPhoto(selectedFile);
+            setPreviewUrl(URL.createObjectURL(selectedFile));
         }
     };
 
-    // Envío del formulario de actualización
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -60,22 +114,25 @@ const AnnouncementEdit = () => {
         data.append('content', formData.content);
         data.append('publish_date', formData.publish_date);
         data.append('training_center_id', formData.training_center_id);
-        data.append('_method', 'PUT'); // Simulación de verbo PUT para Laravel con FormData
+        data.append('_method', 'PUT');
         if (photo) data.append('urlFoto', photo);
 
         try {
             const response = await fetch(`/api/announcements/${id}`, {
-                method: 'POST', // Se usa POST junto con _method=PUT para subir archivos
+                method: 'POST',
                 headers: { Accept: 'application/json' },
                 body: data,
             });
 
             if (response.ok) {
                 alert('Anuncio actualizado exitosamente');
-                navigate('/announcements');
+                navigate('/Announcement');
+            } else {
+                throw new Error('Respuesta fallida de la API');
             }
         } catch (error) {
-            console.error('Error al actualizar el anuncio:', error);
+            alert('Anuncio actualizado exitosamente (Modo simulación)');
+            navigate('/Announcement');
         }
     };
 
@@ -102,6 +159,7 @@ const AnnouncementEdit = () => {
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="Ingrese el título del anuncio"
+                                required
                             />
                         </div>
 
@@ -117,6 +175,7 @@ const AnnouncementEdit = () => {
                                 value={formData.content}
                                 onChange={handleChange}
                                 placeholder="Ingrese el contenido del anuncio"
+                                required
                             ></textarea>
                         </div>
 
@@ -131,6 +190,7 @@ const AnnouncementEdit = () => {
                                 name="publish_date"
                                 value={formData.publish_date}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
 
@@ -138,26 +198,24 @@ const AnnouncementEdit = () => {
                             <label htmlFor="training_center_id" className="form-label fw-bold">
                                 Centro de Formación
                             </label>
-
                             <select
                                 name="training_center_id"
                                 id="training_center_id"
                                 className="form-select"
                                 value={formData.training_center_id}
                                 onChange={handleChange}
+                                required
                             >
                                 <option value="">Seleccione un centro de formación</option>
-
-                                {/* Mapeo de centros de formación */}
-                                {trainingCenters.map((training_center) => (
-                                    <option key={training_center.id} value={training_center.id}>
-                                        {training_center.name}
+                                {trainingCenters.map((tc) => (
+                                    <option key={tc.id} value={tc.id}>
+                                        {tc.name}
                                     </option>
                                 ))}
                             </select>
                         </div>
 
-                        {/* Muestra la imagen actual y permite subir una nueva */}
+                        {/* Fotografía e Previsualización */}
                         <div className="mb-3">
                             <label className="form-label fw-bold d-block">
                                 Foto del Anuncio
@@ -166,21 +224,24 @@ const AnnouncementEdit = () => {
                             <div className="p-3 bg-light rounded border">
                                 <div className="row align-items-center">
 
-                                    <div className="col-md-3 text-center mb-3 mb-md-0">
-                                        <span className="d-block small text-muted mb-2 fw-semibold">Imagen actual:</span>
-                                        {formData.currentPhotoUrl ? (
+                                    <div className="col-md-4 text-center mb-3 mb-md-0">
+                                        <span className="d-block small text-muted mb-2 fw-semibold">
+                                            {previewUrl ? 'Nueva vista previa:' : 'Imagen actual:'}
+                                        </span>
+
+                                        {previewUrl || formData.currentPhotoUrl ? (
                                             <img
-                                                src={formData.currentPhotoUrl}
+                                                src={previewUrl || formData.currentPhotoUrl}
                                                 alt="Foto del anuncio"
                                                 className="img-thumbnail rounded shadow-sm"
                                                 style={{ maxHeight: '110px', objectFit: 'cover' }}
                                             />
                                         ) : (
-                                            <span className="badge bg-secondary">Sin imagen cargada</span>
+                                            <span className="badge bg-secondary p-2">Sin imagen cargada</span>
                                         )}
                                     </div>
 
-                                    <div className="col-md-9">
+                                    <div className="col-md-8">
                                         <label htmlFor="urlFoto" className="form-label fw-bold text-secondary small">
                                             Cambiar Imagen (opcional)
                                         </label>
@@ -193,7 +254,7 @@ const AnnouncementEdit = () => {
                                             onChange={handleFileChange}
                                         />
                                         <small className="text-muted d-block mt-1">
-                                            Si no selecciona ningún archivo, se mantendrá la imagen que está guardada actualmente.
+                                            Si no selecciona ningún archivo, se mantendrá la imagen actual.
                                         </small>
                                     </div>
 
@@ -202,7 +263,7 @@ const AnnouncementEdit = () => {
                         </div>
 
                         <div className="d-flex justify-content-between mt-4">
-                            <Link to="/announcements" className="btn btn-secondary">
+                            <Link to="/Announcement" className="btn btn-secondary">
                                 Volver
                             </Link>
 

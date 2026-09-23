@@ -9,21 +9,21 @@ const Environments = () => {
       name: 'Ambiente de Software 1',
       location: 'Bloque A - Piso 2',
       training_center: { name: 'Centro de Teleinformática y Producción Industrial' },
-      
+
     },
     {
       id: 2,
       name: 'Laboratorio de Redes',
       location: 'Bloque B - Piso 1',
       training_center: { name: 'Centro Agropecuario' },
-     
+
     },
     {
       id: 3,
       name: 'Taller de Electrónica',
       location: 'Bloque C - Piso 1',
       training_center: { name: 'Centro de Teleinformática y Producción Industrial' },
-     
+
     }
   ]);
 
@@ -41,15 +41,15 @@ const Environments = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold text-dark">Lista de Ambientes</h1>
 
-        <Link to="/environments/create" className="btn btn-success shadow-sm">
+        <Link to="/EnvironmentsCreate" className="btn btn-success shadow-sm">
           <i className="bi bi-plus-circle me-1"></i> Nuevo Ambiente
         </Link>
       </div>
 
       {/* Tarjeta con Tabla */}
       <div className="card shadow-lg border-0 rounded-4">
-        <div 
-          className="card-header text-white encabezado-tabla" 
+        <div
+          className="card-header text-white encabezado-tabla"
           style={{ backgroundColor: '#25c72f' }}
         >
           <h5 className="mb-0">Ambientes Registrados</h5>
@@ -64,7 +64,7 @@ const Environments = () => {
                   <th>Nombre</th>
                   <th>Ubicación</th>
                   <th>Centro de Formación</th>
-                  
+
                   <th className="text-center">Acciones</th>
                 </tr>
               </thead>
@@ -92,15 +92,15 @@ const Environments = () => {
                       </td>
 
                       <td className="text-center">
-                        <Link 
-                          to={`/environments/${environment.id}`} 
+                        <Link
+                          to={`/Environments/${environment.id}`}
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
-                        <Link 
-                          to={`/environments/${environment.id}/edit`} 
+                        <Link
+                          to={`/Environments/${environment.id}/edit`}
                           className="btn btn-warning btn-sm me-1 text-white"
                         >
                           Editar

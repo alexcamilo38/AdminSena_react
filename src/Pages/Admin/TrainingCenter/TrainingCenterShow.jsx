@@ -1,6 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+// Datos ficticios de los centros de formación
+const MOCK_TRAINING_CENTERS = [
+    {
+        id: 1,
+        name: 'Centro de Comercio y Servicios',
+        location: 'Sede Principal - Popayán',
+        created_at: '2026-01-15T08:30:00Z',
+        updated_at: '2026-02-10T14:20:00Z',
+    },
+    {
+        id: 2,
+        name: 'Centro Agropecuario',
+        location: 'Sede Norte - Cauca',
+        created_at: '2026-01-18T09:00:00Z',
+        updated_at: '2026-02-12T11:45:00Z',
+    },
+    {
+        id: 3,
+        name: 'Centro de Teleinformática y Producción Industrial',
+        location: 'Sede Alto de Cauca',
+        created_at: '2026-01-20T10:15:00Z',
+        updated_at: '2026-02-15T16:10:00Z',
+    },
+    {
+        id: 4,
+        name: 'Centro Nacional de Aprendizaje',
+        location: 'Sede Santander de Quilichao',
+        created_at: '2026-01-25T07:45:00Z',
+        updated_at: '2026-02-20T13:00:00Z',
+    },
+];
+
 const TrainingCenterShow = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -13,10 +45,14 @@ const TrainingCenterShow = () => {
         const fetchTrainingCenter = async () => {
             try {
                 const response = await fetch(`/api/training-centers/${id}`);
+                if (!response.ok) throw new Error('API no disponible');
+
                 const data = await response.json();
                 setTrainingCenter(data);
             } catch (error) {
-                console.error('Error al obtener los detalles del centro:', error);
+                // Busca en los datos ficticios coincidiendo el ID del parámetro
+                const found = MOCK_TRAINING_CENTERS.find((item) => item.id === Number(id));
+                setTrainingCenter(found || MOCK_TRAINING_CENTERS[0]);
             } finally {
                 setLoading(false);
             }
@@ -62,7 +98,7 @@ const TrainingCenterShow = () => {
 
     return (
         <div className="container mt-5 mb-5">
-            <div className="card shadow-lg border-0">
+            <div className="card shadow-lg border-0 rounded-4">
 
                 <div className="card-header bg-success text-white">
                     <h3 className="mb-0">{trainingCenter.name}</h3>

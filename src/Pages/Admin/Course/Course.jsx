@@ -44,7 +44,7 @@ const Course = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold text-dark">Lista de Cursos</h1>
 
-        <Link to="/course/registro" className="btn btn-success shadow-sm">
+        <Link to="/CourseCreate" className="btn btn-success shadow-sm">
           <i className="bi bi-plus-circle me-1"></i> Nuevo Curso
         </Link>
       </div>
@@ -93,14 +93,14 @@ const Course = () => {
 
                       <td className="text-center">
                         <Link 
-                          to={`/course/${course.id}`} 
+                          to={`/Courses/${course.id}`} 
                           className="btn btn-info btn-sm me-1 text-white"
                         >
                           Mostrar
                         </Link>
 
                         <Link 
-                          to={`/course/${course.id}/edit`} 
+                          to={`/Courses/${course.id}/edit`} 
                           className="btn btn-warning btn-sm me-1"
                         >
                           Editar
