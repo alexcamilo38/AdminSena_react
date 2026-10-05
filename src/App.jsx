@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar"
 import "./App.css"
 import Footer from "./Components/Footer"
 import { Route, Routes } from "react-router-dom"
+
 import Home from "./Pages/Home/Home"
 import Login from "./Pages/Login/Login"
 import Register from "./Pages/Login/Register"
@@ -10,53 +11,66 @@ import AdminHome from "./Pages/Admin/AdminHome"
 import About from "./Pages/About/about"
 import Profile from "./Pages/Profile/Profile"
 import StudentHome from "./Pages/Student/StudentHome"
+{/* Rutas de areas*/}
 import Area from "./Pages/Admin/Areas/Area"
-import Computer from "./Pages/Admin/Equipos/Computer"
-import Course from "./Pages/Admin/Course/Course"
-import Teacher from "./Pages/Admin/Teacher/Teacher"
-import TrainingCenter from "./Pages/Admin/TrainingCenter/TrainingCenter"
-import Apprentice from "./Pages/Admin/Apprentice/Apprentice"
-import Reports from "./Pages/Admin/Report/Reports"
-import Convocatorias from "./Pages/Admin/Report/Convocatorias"
-import ForgotPassword from "./Pages/Login/ForgotPassword"
 import AreaDetail from "./Pages/Admin/Areas/AreaDetail"
 import AreaCreate from "./Pages/Admin/Areas/AreaCreate"
-import Program from "./Pages/Admin/Program/Program"
-import Environments from "./Pages/Admin/Environments/Environments"
-import Announcement from "./Pages/Admin/Announcements/Announcement"
-import Offer from "./Pages/Admin/Offers/Offer"
-import Cohort from "./Pages/Admin/Cohorts/Cohort"
 import AreaEdit from "./Pages/Admin/Areas/AreaEdit"
-import TrainingCenterCreate from "./Pages/Admin/TrainingCenter/TrainingCenterCreate"
-import AnnouncementShow from "./Pages/Admin/Announcements/AnnouncementShow"
-import AnnouncementCreate from "./Pages/Admin/Announcements/AnnouncementCreate"
-import AnnouncementEdit from "./Pages/Admin/Announcements/AnnouncementEdit"
-import ApprenticeShow from "./Pages/Admin/Apprentice/ApprenticeShow"
-import ApprenticeCreate from "./Pages/Admin/Apprentice/ApprenticeCreate"
-import ApprenticeEdit from "./Pages/Admin/Apprentice/ApprenticeEdit"
+{/* Rutas de Equipos*/}
+import Computer from "./Pages/Admin/Equipos/Computer"
 import ComputerCreate from "./Pages/Admin/Equipos/ComputerCreate"
 import ComputerShow from "./Pages/Admin/Equipos/ComputerShow"
 import ComputerEdit from "./Pages/Admin/Equipos/ComputerEdit"
-import TrainingCenterShow from "./Pages/Admin/TrainingCenter/TrainingCenterShow"
-import TrainingCenterEdit from "./Pages/Admin/TrainingCenter/TrainingCenterEdit"
-import TeacherCreate from "./Pages/Admin/Teacher/TeacherCreate"
-import TeacherShow from "./Pages/Admin/Teacher/TeacherShow"
-import TeacherEdit from "./Pages/Admin/Teacher/TeacherEdit"
+{/* Rutas de Cursos */}
+import Course from "./Pages/Admin/Course/Course"
 import CourseCreate from "./Pages/Admin/Course/CourseCreate"
 import CourseEdit from "./Pages/Admin/Course/CourseEdit"
 import CourseShow from "./Pages/Admin/Course/CourseShow"
-import ProgramEdit from "./Pages/Admin/Program/ProgramEdit"
-import ProgramCreate from "./Pages/Admin/Program/ProgramCreate"
-import ProgramShow from "./Pages/Admin/Program/ProgramShow"
+{/* Rutas de Profesores*/}
+import Teacher from "./Pages/Admin/Teacher/Teacher"
+import TeacherCreate from "./Pages/Admin/Teacher/TeacherCreate"
+import TeacherShow from "./Pages/Admin/Teacher/TeacherShow"
+import TeacherEdit from "./Pages/Admin/Teacher/TeacherEdit"
+{/* Rutas de centro de formacion */}
+import TrainingCenter from "./Pages/Admin/TrainingCenter/TrainingCenter"
+import TrainingCenterShow from "./Pages/Admin/TrainingCenter/TrainingCenterShow"
+import TrainingCenterEdit from "./Pages/Admin/TrainingCenter/TrainingCenterEdit"
+import TrainingCenterCreate from "./Pages/Admin/TrainingCenter/TrainingCenterCreate"
+{/* Rutas de Aprendices*/}
+import Apprentice from "./Pages/Admin/Apprentice/Apprentice"
+import ApprenticeShow from "./Pages/Admin/Apprentice/ApprenticeShow"
+import ApprenticeCreate from "./Pages/Admin/Apprentice/ApprenticeCreate"
+import ApprenticeEdit from "./Pages/Admin/Apprentice/ApprenticeEdit"
+{/* Rutas de Reportes*/}    
+import Reports from "./Pages/Admin/Report/Reports"
+import Convocatorias from "./Pages/Admin/Report/Convocatorias"
+import ForgotPassword from "./Pages/Login/ForgotPassword"
+{/* Rutas de Ambientes*/}
+import Environments from "./Pages/Admin/Environments/Environments"
 import EnvironmentsCreate from "./Pages/Admin/Environments/EnvironmentsCreate"
 import EnvironmentsShow from "./Pages/Admin/Environments/EnvironmentsShow"
 import EnvironmentsEdit from "./Pages/Admin/Environments/EnvironmentsEdit"
+{/* Rutas de Anuncios*/}    
+import Announcement from "./Pages/Admin/Announcements/Announcement"
+import AnnouncementShow from "./Pages/Admin/Announcements/AnnouncementShow"
+import AnnouncementCreate from "./Pages/Admin/Announcements/AnnouncementCreate"
+import AnnouncementEdit from "./Pages/Admin/Announcements/AnnouncementEdit"
+{/* Rutas de Ofertas*/}   
+import Offer from "./Pages/Admin/Offers/Offer"
 import OfferShow from "./Pages/Admin/Offers/OfferShow"
 import OfferCreate from "./Pages/Admin/Offers/OfferCreate"
 import OfferEdit from "./Pages/Admin/Offers/OfferEdit"
+ {/* Rutas de Fichas*/}  
+import Cohort from "./Pages/Admin/Cohorts/Cohort"
 import CohortShow from "./Pages/Admin/Cohorts/CohortShow"
 import CohortCreate from "./Pages/Admin/Cohorts/CohortCreate"
 import CohortEdit from "./Pages/Admin/Cohorts/CohortEdit"
+{/* Rutas de Programas*/}    
+import Program from "./Pages/Admin/Program/Program"
+import ProgramEdit from "./Pages/Admin/Program/ProgramEdit"
+import ProgramCreate from "./Pages/Admin/Program/ProgramCreate"
+import ProgramShow from "./Pages/Admin/Program/ProgramShow"
+
 
 const App = () => {
   return (
@@ -133,11 +147,7 @@ const App = () => {
           <Route path="/CohortsCreate" element={<CohortCreate />} />
           <Route path="/Cohorts/:id/edit" element={<CohortEdit />} />
 
-          Student
-
       </Routes>
-
-
 
       <Footer/>
     </>
